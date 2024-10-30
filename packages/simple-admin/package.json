@@ -1,5 +1,6 @@
 {
   "name": "@simple/admin",
+  "description": "low code editor",
   "version": "0.0.0",
   "private": true,
   "type": "module",
