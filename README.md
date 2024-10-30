@@ -86,8 +86,16 @@ monorepo是一种项目代码管理方式，指单个仓库中管理多个项目
 - simple-ui组件库项目引入tailwindcss
   - 安装tailwindcss： pnpm add -D tailwindcss postcss autoprefixer
   - 初始化tailwindcss的配置
+  - 此时运行的时候会发现爆PostCSS的错误，可以修改postcss.config.js为postcss.config.cjs
   - 解决相对容器(比如div)做响应式处理的问题，可以使得这个媒体查询是相对于容器，而不是屏幕
     - 因为媒体查询是基于屏幕的，我们的simple-ui组件库的场景：一种是用在低代码的后台，一种是用在前台；用在前台其实就是相对于屏幕，
       在低代码平台的渲染区的组件库是相对于盒子容器做响应式的
   - 解决tailwindcss因为要做响应式处理，导致一个属性，要重复写几遍，要写很多的class
   - container-type 容器查询
+  - Mobile端/PC端组件样式兼容封装
+    - simple-ui项目安装sass： pnpm add -D sass
+    - simple-ui/assets/styles新增：block(物料)、functions、mixins、reset、index
+    - simple-ui/assets/styles/reset.scss，注意要在最外层包一个特殊类名，防止和宿主环境的重置样式发生冲突
+    - simple-ui/assets/styles/mixins.scss,主要写媒体查询相关的东西，我们定<1024的为移动端，>1024为pc端
+      - 注意我们的查询分为：媒体查询，容器查询
+    - 借助vscode添加一些常用的代码片段

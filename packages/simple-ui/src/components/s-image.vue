@@ -9,10 +9,20 @@ defineProps<{
   <img :src="src" class="s-image" />
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .s-image {
-  width: 200px;
-  height: 300px;
+  width: 300px;
+  height: 200px;
   margin: 0 auto;
+}
+.title {
+  font-size: 50px;
+  color: red;
+}
+@container (max-width: 600px) {
+  .title {
+    font-size: 20px;
+    color: blue;
+  }
 }
 </style>

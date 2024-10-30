@@ -1,0 +1,6 @@
+// 方法
+@use "sass:math";
+// 转px为vw的方法
+@function vw($px) {
+	@return math.div($px, 375) * 100vw;
+}
