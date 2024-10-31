@@ -115,3 +115,30 @@ monorepo是一种项目代码管理方式，指单个仓库中管理多个项目
 - simple-admin的编辑页面
   - 在views/editor页面中会分很多组件
     - 在components新增editor文件夹: editor-header、editor-block、editor-render、editor-config
+  - 开始编写views/editor页面左侧物料区
+  - 新建editor-block-drag可以拖拽的组件
+  - 编写editor-block组件左侧物料区
+  - 新增config/block.ts存放每个物料的配置，如icon、标题、schema，要渲染的组件，可嵌套的标识
+  - 注意：config/block.ts下的 每个物料的formData的数据是从 simple-ui中每个组件的schema中来的
+  - 定义json schema的类型 推荐使用typebox依赖，比较方便给结构赋予类型，并且使用的时候会有提示
+  - 因为在simple-ui 和 simple-admin 项目都要使用json schema，因此这两个都安装typebox依赖
+  - 安装typebox: pnpm add @sinclair/typebox --save
+  - simple-ui 的图片物料定义schema整体大致结构 - simple-ui 的图片物料schema数据导出出去
+  - simple-ui 项目打包时，会发现没有ts声明文件，导致宿主环境没法引用
+  - 通过安装vite-plugin-dts，pnpm add vite-plugin-dts -D,可以导出ts声明文件
+  - 在package.json中导出声明文件路径 - simple-admin 项目安装 simple-ui 库
+  - simple-admin 新建 config/schema.ts文件，管理所有的schema数据
+  - simple-admin 开始编写/components/editor/EditorBlockDrag的内容
+  - simple-admin 新建/components/editor/nested.ts文件，编写nested相关的操作 - 需要用到深拷贝，安装lodash - 安装nanoid库，可随机生成id
+  - simple-admin 安装vuedraggable插件：pnpm add -S vuedraggable@next，并在main.ts中注册
+
+解决每次更改simple-ui库的代码时，都要手动的去重新打包 宿主环境才能更新依赖
+
+问题：
+
+1. 插件引入vue的版本问题
+2. vue3引入样式的问题，在simple-ui项目的样式使用scope，以及在vue3的预览项目中使用scope，会导致预览vue3项目中simple-ui的组件样式失效
+3. 渲染区的组件样式污染问题
+4. 解决因为媒体查询是基于屏幕的，我们的simple-ui组件库的场景：一种是用在低代码的后台，一种是用在前台；用在前台其实就是相对于屏幕，
+   在低代码平台的渲染区的组件库是相对于盒子容器做响应式的
+5. 解决每次更改simple-ui库的代码时，都要手动的去重新打包 宿主环境才能更新依赖

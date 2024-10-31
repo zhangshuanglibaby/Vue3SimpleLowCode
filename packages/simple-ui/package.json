@@ -5,10 +5,12 @@
   "type": "module",
   "main": "./dist/simple.umd.cjs",
   "module": "./dist/simple.js",
+  "types": "./dist/src/main.d.ts",
   "exports": {
     ".": {
       "import": "./dist/simple.js",
-      "require": "./dist/simple.umd.cjs"
+      "require": "./dist/simple.umd.cjs",
+      "types": "./dist/src/main.d.ts"
     },
     "./style": {
       "import": "./dist/style.css",
@@ -26,6 +28,7 @@
     "coverage": "vitest run --coverage"
   },
   "dependencies": {
+    "@sinclair/typebox": "^0.33.17",
     "rimraf": "^6.0.1",
     "vue": "^3.5.12"
   },
@@ -40,6 +43,7 @@
     "tailwindcss": "^3.4.14",
     "typescript": "~5.6.0",
     "vite": "^5.4.10",
+    "vite-plugin-dts": "^4.3.0",
     "vitest": "^2.1.4",
     "vue-tsc": "^2.1.6"
   }

@@ -3,10 +3,17 @@ import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from 'vite'
 import { resolve } from 'path'
 import vue from '@vitejs/plugin-vue'
+import dts from 'vite-plugin-dts'
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [
+    vue(),
+    dts({
+      // 指定tsconfig文件
+      tsconfigPath: 'tsconfig.app.json'
+    })
+  ],
   build: {
     lib: {
       entry: resolve(__dirname, 'src/main.ts'), // 设置入口文件

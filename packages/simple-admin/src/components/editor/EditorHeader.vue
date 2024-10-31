@@ -1,7 +1,9 @@
 <template>
   <div class="editor-header">
     <div class="header-left">
-      <Icon :icon="icon.back" />
+      <div class="back">
+        <Icon :icon="icon.back" />
+      </div>
       <div class="header-title">页面</div>
       <div class="line"></div>
       <VSelect v-model="viewport"></VSelect>
@@ -43,6 +45,17 @@ const viewport = ref<Viewport>('desktop')
   .header-left {
     display: flex;
     align-items: center;
+    .back {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 5px;
+      cursor: pointer;
+      border-radius: var(--border-radius);
+      &:hover {
+        background-color: var(--color-black-hover);
+      }
+    }
     .header-title {
       margin-left: 16px;
     }

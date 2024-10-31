@@ -14,10 +14,15 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@simple/ui": "workspace:^",
+    "@sinclair/typebox": "^0.33.17",
     "element-plus": "^2.8.6",
+    "lodash": "^4.17.21",
+    "nanoid": "^5.0.8",
     "pinia": "^2.2.4",
     "vue": "^3.5.12",
-    "vue-router": "^4.4.5"
+    "vue-router": "^4.4.5",
+    "vuedraggable": "^4.1.0"
   },
   "devDependencies": {
     "@iconify/vue": "^4.1.2",

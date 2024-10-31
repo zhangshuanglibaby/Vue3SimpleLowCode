@@ -28,14 +28,14 @@ const change = (value: string) => {
 </script>
 <style lang="scss" scoped>
 :deep(.el-select__popper) {
-  border-radius: var(--border-radius);
+  border-radius: 4px;
   top: 34px !important;
 }
 :deep(.el-select-dropdown__list) {
   padding: 3px 0;
 }
 :deep(.el-select-dropdown__item) {
-  border-radius: var(--border-radius);
+  border-radius: 4px;
   margin: 0 3px;
   padding: 0 44px 0 8px;
 }

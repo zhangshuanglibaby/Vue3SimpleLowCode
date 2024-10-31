@@ -1,5 +1,5 @@
 // 存放yes icon用到的图标
-export default {
+const iconConfig = {
   // 基础组件图标
   row: 'fluent:layout-row-two-20-regular',
   column: 'fluent:layout-column-two-split-right-16-regular',
@@ -34,4 +34,8 @@ export default {
   add: 'fluent:add-16-regular',
   subtract: 'fluent:subtract-16-regular',
   back: 'fluent:chevron-left-32-filled'
-}
+};
+
+export type IconConfigKey = keyof typeof iconConfig;
+
+export default iconConfig;
