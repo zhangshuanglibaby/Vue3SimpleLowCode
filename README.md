@@ -100,7 +100,18 @@ monorepo是一种项目代码管理方式，指单个仓库中管理多个项目
         - 注意我们的查询分为：媒体查询，容器查询
       - 借助vscode添加一些常用的代码片段
 
-- 低代码编辑器的整体结构
+- simple-admin低代码编辑器的整体结构
   - views新建editor编辑页、list列表页
   - 在router中更改为哈西路由模式，引入这两个页面
   - 在最外层项目simple新增启动simple-admin的脚本
+  - 在vscode增加autoscssstruct4vue插件，根据结构一键生成类名
+  - 图标使用yesicon/fluent: https://yesicon.app/
+    - 新建/src/config/icon.ts文件
+    - 安装 @iconify/vue依赖: pnpm add --save-dev @iconify/vue
+    - 在main.ts中引入并全局注册icon组件
+  - 新建/components/base 放置基础组件
+  - 新建/components/base/v-icon组件，放置特殊的icon内容
+  - 新建src/types放置类型文件
+- simple-admin的编辑页面
+  - 在views/editor页面中会分很多组件
+    - 在components新增editor文件夹: editor-header、editor-block、editor-render、editor-config

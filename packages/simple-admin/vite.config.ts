@@ -15,7 +15,7 @@ export default defineConfig({
     }),
     Components({
       resolvers: [ElementPlusResolver()],
-      dirs: ['/src/components'], // 指定文件夹
+      dirs: ['src/components'], // 指定文件夹
       extensions: ['vue'], // 文件拓展名
       deep: true, // 针对文件夹里嵌套文件夹，开启deep开启循环
       dts: true // 解决ts声明问题

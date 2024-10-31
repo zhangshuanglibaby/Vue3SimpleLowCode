@@ -1,7 +1,19 @@
 <template>
-  <div>
-    <h1>编辑页</h1>
+  <div class="editor">
+    11
+    <EditorHeader />
+    <div class="container">
+      <EditorBlock />
+      <EditorRender />
+      <EditorConfig />
+    </div>
   </div>
 </template>
 <script setup lang="ts"></script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.editor {
+  .container {
+    display: flex;
+  }
+}
+</style>
