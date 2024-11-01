@@ -131,6 +131,9 @@ monorepo是一种项目代码管理方式，指单个仓库中管理多个项目
   - simple-admin 开始编写/components/editor/EditorBlockDrag的内容
   - simple-admin 新建/components/editor/nested.ts文件，编写nested相关的操作 - 需要用到深拷贝，安装lodash - 安装nanoid库，可随机生成id
   - simple-admin 安装vuedraggable插件：pnpm add -S vuedraggable@next，并在main.ts中注册
+  - 开始编写views/editor页面中间的渲染区
+    - 渲染区的一些数据需要记录到状态管理中
+  - simple-ui项目，要实现注册全局组件插件
 
 解决每次更改simple-ui库的代码时，都要手动的去重新打包 宿主环境才能更新依赖
 

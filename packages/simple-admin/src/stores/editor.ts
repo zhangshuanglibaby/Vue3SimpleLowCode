@@ -1,14 +1,20 @@
-import { defineStore } from 'pinia'
+import { defineStore } from 'pinia';
+import type { Viewport, IBaseBlockOrNull } from '@/types/editor';
 
-export const useCounterStore = defineStore('editor', {
+export const useEditorStore = defineStore('editor', {
   state: () => {
     return {
-      count: 0
-    }
+      currentSelect: null as IBaseBlockOrNull, // 当前选中的组件
+      viewport: 'desktop' as Viewport // 记录当前的端
+    };
   },
   actions: {
-    setCount () {
-      this.count++
+    setCurrentSelect (value: IBaseBlockOrNull) {
+      this.currentSelect = value;
+    },
+
+    setViewport (value: Viewport) {
+      this.viewport = value;
     }
   }
-})
+});

@@ -1,6 +1,5 @@
 <template>
   <div class="editor">
-    11
     <EditorHeader />
     <div class="container">
       <EditorBlock />

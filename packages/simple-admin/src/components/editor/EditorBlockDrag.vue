@@ -42,6 +42,15 @@ defineProps({
   display: flex;
   padding: 12px;
   flex-wrap: wrap;
+  .ghost-class {
+    // height: 40px;
+    border: 1px solid var(--color-active-text) !important;
+    // background-color: rgba(64, 158, 255, 0.3);
+    // display: flex;
+    // flex-direction: column;
+    // align-items: center;
+    // justify-content: center;
+  }
   .block-item {
     display: flex;
     align-items: center;
@@ -52,10 +61,13 @@ defineProps({
     box-sizing: border-box;
     padding: 8px 0;
     border-radius: 8px;
-    cursor: pointer;
+    cursor: grab;
     &:hover {
       background: var(--color-black-hover);
       outline: 1px solid var(--color-border);
+    }
+    &:active {
+      cursor: grabbing;
     }
   }
   .block-icon {

@@ -9,9 +9,12 @@ import { Icon } from '@iconify/vue';
 import ElementPlus from 'element-plus';
 import Draggable from 'vuedraggable';
 
+import simpleUi from '@simple/ui';
+
 const app = createApp(App);
 
 app.use(ElementPlus);
+app.use(simpleUi);
 app.use(createPinia());
 app.use(router);
 
