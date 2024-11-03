@@ -7,7 +7,6 @@
     item-key="id"
     class="editor-render-drag"
     ghost-class="ghost-class"
-    drag-class="drag"
     :move="move"
   >
     <template #item="{ element }">
@@ -22,6 +21,7 @@
             :is="element.code"
             :data="element.formData"
             :viewport="editorStore.viewport"
+            :children="element.children"
           />
         </div>
       </div>

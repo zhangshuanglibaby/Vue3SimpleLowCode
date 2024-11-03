@@ -1,0 +1,21 @@
+@use "@/assets/styles/_config.scss" as *;
+@use "@/assets/styles/_mixins.scss" as *;
+
+@include b("column") {
+	.image {
+		width: 100%;
+		display: block;
+		object-fit: cover;
+		margin: 0 auto;
+		// 这时候的高度 可以使用响应式
+		@include res(height, 295, 295);
+	}
+	.no-image {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: #ffffff;
+		@include res(height, 295, 295);
+	}
+}
