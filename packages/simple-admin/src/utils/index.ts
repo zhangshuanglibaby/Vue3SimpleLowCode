@@ -1,5 +1,5 @@
 import { customAlphabet } from 'nanoid';
-
+import type { Viewport } from '@/types/editor';
 /**
  * 随机id生成
  * @param length 长度
@@ -17,4 +17,11 @@ export const nanoid = (length = 8) => {
  */
 export const sleep = (delay: number) => {
   return new Promise(resolve => setTimeout(resolve, delay));
+};
+
+/**
+ * 判断是否是移动端
+ */
+export const isMobileViewport = (value: Viewport) => {
+  return value === 'mobile';
 };
