@@ -10,7 +10,44 @@
     :move="move"
   >
     <template #item="{ element }">
-      <div class="element">
+      <div v-if="element.nested && level < 2" class="element">
+        <!--
+        nested 为true，表示要渲染嵌套组件(容器组件)
+        level < 2 表示此时是可以嵌套进来的
+        需要把children传递出去
+        放置嵌套组件的数据混乱，增加key属性
+        因为容器组件的内容是插槽，渲染的东西交给宿主环境，因此这里放的还是拖拽组件自己本身
+        记得要更新 level的数据，要加上nestedClass类名用来判定是否可以拖入
+       -->
+        <!-- activeClass激活的样式 viewport记录是哪端 -->
+        <div
+          class="block-nested-render"
+          :class="activeClass(element)"
+          @click.stop="editorStore.setCurrentSelect(element)"
+        >
+          <component
+            :key="element.id"
+            :is="element.code"
+            :data="element.formData"
+            :viewport="editorStore.viewport"
+            :children="element.children"
+          >
+            <template #default="{ item, index }">
+              <EditorRenderDrag
+                :key="element.id + '-' + index"
+                :list="item"
+                :group="group"
+                :sort="sort"
+                :level="level + 1"
+                class="nested-item"
+                :class="nestedClass"
+              />
+            </template>
+          </component>
+        </div>
+      </div>
+      <div v-else class="element">
+        <!-- 简单渲染 -->
         <!-- activeClass激活的样式 viewport记录是哪端 -->
         <div
           class="block-render"
@@ -21,7 +58,6 @@
             :is="element.code"
             :data="element.formData"
             :viewport="editorStore.viewport"
-            :children="element.children"
           />
         </div>
       </div>
@@ -29,9 +65,10 @@
   </Draggable>
 </template>
 <script setup lang="ts">
-import { useEditorStore } from '@/stores/editor';
-import { move } from './nested';
 import { computed } from 'vue';
+
+import { useEditorStore } from '@/stores/editor';
+import { move, nestedClass } from './nested';
 
 defineOptions({
   name: 'editor-render-drag'

@@ -6,7 +6,7 @@
       :style="colStyles(colWidth)"
       class="item"
     >
-      <!-- 需要把子级的信息暴露给宿主环境 -->
+      <!-- 需要把子级的信息暴露给宿主环境  这个item其实是每个子级的数据-->
       <slot :item="itemComputed(index)" :index="index"></slot>
     </div>
   </div>
@@ -18,13 +18,13 @@ import { createNameSpace } from '@/utils/components'
 import { props as _props } from './props'
 
 // 创建专属的类名
-const { n } = createNameSpace('image')
+const { n } = createNameSpace('column')
 const classes = computed(() => [n()])
 const props = defineProps(_props)
 
 // 结构props列面的值，注意要用toRefs定义，否则解构后会丢失响应性
 const { data, viewport, children } = toRefs(props)
-const cols = computed(() => data.value?.cols?.[viewport.value] || '')
+const cols = computed(() => data.value?.cols?.[viewport.value] || [0.5, 0.5])
 const background = computed(
   () => data.value?.background?.[viewport.value] || ''
 )
@@ -33,7 +33,7 @@ const colStyles = computed(() => (colWidth: number | string) => ({
   width: Number(colWidth) * 100 + '%'
 }))
 const itemComputed = computed(
-  () => (index: number) => children.value?.[viewport.value]?.[index] || []
+  () => (index: number) => children.value?.[index] || []
 )
 </script>
 

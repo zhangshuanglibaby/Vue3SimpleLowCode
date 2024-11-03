@@ -1,5 +1,5 @@
 <template>
-  <div class="editor-render">
+  <div class="editor-render" :style="pageStyle" :class="pageClass">
     <!-- 渲染区 -->
     <EditorRenderDrag :list="list" :group="dragGroup" class="render" />
     <!-- 空展示 -->
@@ -15,12 +15,20 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 
 import type { IBaseBlock } from '@/types/editor';
 import { dragGroup } from './nested';
 
 const list = ref<IBaseBlock[]>([]);
+
+const pageStyle = computed(() => {
+  return {};
+});
+
+const pageClass = computed(() => {
+  return {};
+});
 </script>
 <style lang="scss" scoped>
 .editor-render {

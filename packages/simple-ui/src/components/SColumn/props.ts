@@ -36,11 +36,8 @@ export const props = {
   },
   // 子级
   children: {
-    type: Object as PropType<ViewportType<any[][]>>,
-    default: () => ({
-      desktop: [[], []],
-      mobile: [[], []]
-    })
+    type: Array as PropType<any[][]>,
+    default: () => [[], []]
   },
   viewport: {
     type: String as PropType<ComponentViewport>,
