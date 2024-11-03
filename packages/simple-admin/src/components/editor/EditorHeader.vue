@@ -21,11 +21,11 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref } from 'vue'
-import type { Viewport } from '@/types/editor'
-import icon from '@/config/icon.ts'
+import { ref } from 'vue';
+import type { Viewport } from '@/types/editor';
+import icon from '@/config/icon';
 
-const viewport = ref<Viewport>('desktop')
+const viewport = ref<Viewport>('desktop');
 </script>
 <style lang="scss" scoped>
 .editor-header {

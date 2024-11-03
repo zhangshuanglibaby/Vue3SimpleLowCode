@@ -9,6 +9,7 @@ const globalCom = {
       eager: true
     })
     for (let each in modules) {
+      console.log(each, '========>each')
       const subName = each.replace(/\/src\/components\//, '')
       console.log(subName, '====>subName')
       const name = subName.substring(0, subName.length - 10)

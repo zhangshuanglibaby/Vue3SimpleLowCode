@@ -6,7 +6,8 @@
     :animation="200"
     item-key="id"
     class="editor-render-drag"
-    ghost-class="ghost"
+    ghost-class="ghost-class"
+    drag-class="drag"
     :move="move"
   >
     <template #item="{ element }">
@@ -69,13 +70,18 @@ const activeClass = computed(() => {
 </script>
 <style lang="scss" scoped>
 .editor-render-drag {
+  width: 100%;
+  height: 100%;
   .element {
     position: relative;
   }
+  .ghost-class {
+    background-color: red !important;
+  }
   .ghost {
     //   // height: 40px;
-    border: 1px solid var(--color-active-text) !important;
-    background-color: red !important;
+    // border: 1px solid var(--color-active-text) !important;
+    // background-color: red !important;
     //   // background-color: rgba(64, 158, 255, 0.3);
     //   // display: flex;
     //   // flex-direction: column;

@@ -4,6 +4,7 @@ import { defineConfig } from 'vite'
 import { resolve } from 'path'
 import vue from '@vitejs/plugin-vue'
 import dts from 'vite-plugin-dts'
+import defineOptions from 'unplugin-vue-define-options/vite'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -12,7 +13,8 @@ export default defineConfig({
     dts({
       // 指定tsconfig文件
       tsconfigPath: 'tsconfig.app.json'
-    })
+    }),
+    defineOptions()
   ],
   build: {
     lib: {
@@ -39,4 +41,12 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
   }
+  // css: {
+  //   preprocessorOptions: {
+  //     // 配置mixin.scss 混合文件的全局引入
+  //     scss: {
+  //       additionalData: `@import "@/assets/styles/resources.scss";`
+  //     }
+  //   }
+  // }
 })

@@ -1,0 +1,22 @@
+@use "@/assets/styles/_config.scss" as *;
+@use "@/assets/styles/_mixins.scss" as *;
+
+@include b("empty") {
+	width: 100%;
+	text-align: center;
+	margin: 0 auto;
+	.image {
+		object-fit: cover;
+		display: block;
+		margin: 0 auto;
+		@include res(width, 80, 120);
+	}
+
+	.description {
+		color: #909399;
+		text-align: center;
+		margin-top: 12px;
+		@include res(font-size, 16, 16);
+		@include res(margin-top, 16, 16);
+	}
+}

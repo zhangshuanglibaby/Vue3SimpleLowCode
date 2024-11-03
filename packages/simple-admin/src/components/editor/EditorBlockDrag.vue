@@ -6,6 +6,7 @@
     :animation="200"
     item-key="id"
     ghost-class="ghost-class"
+    drag-class="drag"
     class="editor-block-drag"
     :clone="clone"
     :move="move"
@@ -42,15 +43,6 @@ defineProps({
   display: flex;
   padding: 12px;
   flex-wrap: wrap;
-  .ghost-class {
-    // height: 40px;
-    border: 1px solid var(--color-active-text) !important;
-    // background-color: rgba(64, 158, 255, 0.3);
-    // display: flex;
-    // flex-direction: column;
-    // align-items: center;
-    // justify-content: center;
-  }
   .block-item {
     display: flex;
     align-items: center;

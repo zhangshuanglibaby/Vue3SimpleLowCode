@@ -1,0 +1,11 @@
+/*
+  命名空间前缀
+*/
+$namespace: "s";
+$B: null;
+@mixin b($block) {
+	$B: $namespace + "-" + $block !global;
+	.#{$B} {
+		@content;
+	}
+}

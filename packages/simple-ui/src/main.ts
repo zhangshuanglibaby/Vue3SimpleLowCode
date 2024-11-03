@@ -1,5 +1,6 @@
 import './style.css'
 
+import '@/assets/styles/index.scss'
 import type { App } from 'vue'
 // import SImage from './components/image/index.vue'
 import globalCom from './components'

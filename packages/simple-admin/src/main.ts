@@ -10,6 +10,7 @@ import ElementPlus from 'element-plus';
 import Draggable from 'vuedraggable';
 
 import simpleUi from '@simple/ui';
+import '@simple/ui/style';
 
 const app = createApp(App);
 

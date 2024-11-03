@@ -1,6 +1,7 @@
 // 这里主要写跟媒体查询相关的东西
 // 约定<1024的为移动端 >1024的为pc端
-
+@use "sass:math";
+@use "./functions";
 // mobile
 @mixin mobile {
 	@media (max-width: 1023.9px) {
@@ -25,13 +26,13 @@
 
 // 之后想通过调用@include res(font-size, 10, 20) 这种方式来定义属性
 @mixin res($property, $mobile: null, $pc: null) {
-	$pcValue: if(unitless($pc), #{$pc}px, $px); // 判断是否携带单位
+	$pcValue: if(math.is-unitless($pc), #{$pc}px, $px); // 判断是否携带单位
 	$mobileValue: if(
-		unitless($mobile),
+		math.is-unitless($mobile),
 		vw($mobile),
 		$mobile
 	); // 移动端要注意点单位
-	$mobileContainerValue: if(unitless($mobile), #{$mobile}px, $mobile);
+	$mobileContainerValue: if(math.is-unitless($mobile), #{$mobile}px, $mobile);
 	// 判断非空
 	@if (exists($pc)) {
 		@include pc {

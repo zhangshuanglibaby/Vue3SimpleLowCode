@@ -26,11 +26,11 @@ const list = ref<IBaseBlock[]>([]);
 .editor-render {
   container-type: inline-size; // 定义容器查询
   position: relative;
-  width: 100%;
+  width: calc(100vw - var(--editor-block-width));
   min-height: calc(100vh - var(--editor-header-height));
   margin-left: var(--editor-block-width);
   margin-top: var(--editor-header-height);
-  background: #ffffff;
+  // background: #ffffff;
   &.is-mobile {
     width: 375px;
     overflow: hidden;
