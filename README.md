@@ -151,6 +151,7 @@ monorepo是一种项目代码管理方式，指单个仓库中管理多个项目
   - 处理simple-admin项目中编辑器的 右侧配置区的数据通信
   - 开发simple-admin项目 多端切换
   - 开发simple-admin项目 配置区 组件 简易版图片选择
+  - 开发simple-admin 项目 配置区 页面容器
 
 解决每次更改simple-ui库的代码时，都要手动的去重新打包 宿主环境才能更新依赖
 
