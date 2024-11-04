@@ -43,6 +43,15 @@ const callback = (data: any) => {
 </script>
 <style lang="scss" scoped>
 .editor-config-render {
-  padding: 0 14px;
+  overflow-y: auto;
+  width: 100%;
+  :deep(.el-form) {
+    padding-left: 14px;
+    padding-right: 14px;
+    padding-bottom: 14px;
+  }
+  :deep(.el-form-item__label) {
+    justify-content: flex-start;
+  }
 }
 </style>

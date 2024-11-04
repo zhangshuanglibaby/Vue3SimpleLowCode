@@ -46,7 +46,7 @@ watch(
 watch(
   () => editorStore.currentSelect,
   value => {
-    if (!value) editorStore.setCurrentSelect({});
+    if (!value) editorStore.setCurrentSelect(null);
   }
 );
 // 点击伸缩图标

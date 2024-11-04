@@ -152,6 +152,8 @@ monorepo是一种项目代码管理方式，指单个仓库中管理多个项目
   - 开发simple-admin项目 多端切换
   - 开发simple-admin项目 配置区 组件 简易版图片选择
   - 开发simple-admin 项目 配置区 页面容器
+  - 开发simple-admin 项目 列组件的列数选择
+  - column的children数量要和 formData里面的col数量保持一致 这个有点难
 
 解决每次更改simple-ui库的代码时，都要手动的去重新打包 宿主环境才能更新依赖
 
