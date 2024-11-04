@@ -53,7 +53,7 @@ const pageStyle = computed(() => {
 });
 
 const pageClass = computed(() => {
-  return {};
+  return { 'is-mobile': editorStore.isMobileViewport };
 });
 </script>
 <style lang="scss" scoped>
@@ -64,7 +64,8 @@ const pageClass = computed(() => {
   min-height: calc(100vh - var(--editor-header-height));
   margin-left: var(--editor-block-width);
   margin-top: var(--editor-header-height);
-  // background: #ffffff;
+  background: #ffffff;
+  transition: right 0.5s cubic-bezier(1, 0, 0.61, 1.01);
   &.is-mobile {
     width: 375px;
     overflow: hidden;
@@ -73,6 +74,7 @@ const pageClass = computed(() => {
     margin-top: calc(var(--editor-header-height) + 20px);
     margin-bottom: 20px;
     transform: translateX(10px);
+    transition: right 0.5s cubic-bezier(1, 0, 0.61, 1.01);
   }
   .empty {
     position: absolute;

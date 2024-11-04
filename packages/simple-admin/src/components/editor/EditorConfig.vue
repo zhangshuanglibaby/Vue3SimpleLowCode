@@ -37,16 +37,7 @@ const currentSelect = computed(() => editorStore.currentSelect);
 watch(
   () => editorStore.currentSelect,
   value => {
-    if (value) {
-      editorStore.setConfigPanelShow(true);
-    }
-  }
-);
-// 切换为移动端，展开配置区域
-watch(
-  () => editorStore.isMobileViewport,
-  value => {
-    if (value) {
+    if (value?.id) {
       editorStore.setConfigPanelShow(true);
     }
   }
@@ -55,7 +46,7 @@ watch(
 watch(
   () => editorStore.currentSelect,
   value => {
-    if (!value) editorStore.setCurrentSelect(null);
+    if (!value) editorStore.setCurrentSelect({});
   }
 );
 // 点击伸缩图标

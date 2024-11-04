@@ -21,11 +21,21 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
+import { useEditorStore } from '@/stores/editor';
+
 import type { Viewport } from '@/types/editor';
 import icon from '@/config/icon';
 
 const viewport = ref<Viewport>('desktop');
+
+const editorStore = useEditorStore();
+
+watch(viewport, val => {
+  editorStore.setViewport(val);
+  // 如果是移动端的 则默认是展开右侧的配置区
+  editorStore.setConfigPanelShow(val === 'mobile');
+});
 </script>
 <style lang="scss" scoped>
 .editor-header {
