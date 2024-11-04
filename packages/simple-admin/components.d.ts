@@ -7,6 +7,8 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    ConfigFile: typeof import('./src/components/config/ConfigFile.vue')['default']
+    ConfigFiles: typeof import('./src/components/config/ConfigFiles.vue')['default']
     ConfigInput: typeof import('./src/components/config/ConfigInput.vue')['default']
     copy: typeof import('./src/components/editor/EditorConfigBlock copy.vue')['default']
     EditorBlock: typeof import('./src/components/editor/EditorBlock.vue')['default']

@@ -14,6 +14,7 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
 import { useEditorStore } from '@/stores/editor';
+import { all } from 'deepmerge';
 import { blockSchema, type BlockSchemaKeys } from '@/config/schema';
 import { type IBaseBlock } from '@/types/editor';
 import { findNodeById } from '@/components/editor/nested';
@@ -64,7 +65,10 @@ watch(
     // });
     list.value = [...Object.values(listResult)];
   },
-  { immediate: true }
+  {
+    immediate: true,
+    deep: true
+  }
 );
 
 /**
@@ -72,6 +76,7 @@ watch(
  * 监听右侧组配置区的更改操作，需要更新在状态管理存储的配置区数据
  */
 const callback = (params: { data: object; id: string }) => {
+  console.log('监听了更改图片值3');
   console.log(params, '======>EditorConfigBlock callback');
   const { data, id } = params;
   if (!id) return;
@@ -79,6 +84,14 @@ const callback = (params: { data: object; id: string }) => {
   // 遍历状态管理存储的配置区数据， 在找对匹配的元素 更改对应的数据
   const newBLockConfig = findNodeById(blockConfig, id, data);
   editorStore.setBlockConfig(newBLockConfig);
+  console.log('配置区的值4', editorStore.blockConfig);
+  // 更新下当前激活的组件配置
+  if (editorStore.currentSelect?.id === id) {
+    const currentSelect = editorStore.currentSelect;
+    currentSelect.formData = all([editorStore.currentSelect.formData, data]);
+    editorStore.setCurrentSelect(currentSelect);
+  }
+  console.log(editorStore.currentSelect, '=====>editorStore.currentSelect');
 };
 </script>
 <style lang="scss" scoped>

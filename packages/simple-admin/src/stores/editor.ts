@@ -24,7 +24,6 @@ export const useEditorStore = defineStore('editor', {
       this.viewport = value;
     },
     setConfigPanelShow (value: boolean) {
-      console.log(value, '====>setConfigPanelShow');
       this.configPanelShow = value;
     }
   }

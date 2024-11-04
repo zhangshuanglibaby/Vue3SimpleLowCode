@@ -49,7 +49,7 @@ export const findNodeById = (
   for (let i = 0; i < array.length; i++) {
     const element = array[i];
     if (element.id === nodeId)
-      element.formData = deepmerge.all(element.formData, data);
+      element.formData = deepmerge.all([element.formData, data]);
     return array;
   }
   return array;
