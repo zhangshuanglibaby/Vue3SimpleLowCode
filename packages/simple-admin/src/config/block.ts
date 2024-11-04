@@ -5,35 +5,35 @@ export const baseBlocks: IBaseBlock[] = [
   {
     id: '',
     name: '图片',
-    code: 'SImage',
+    code: 'image',
     icon: 'image',
     formData: {}
   },
   {
     id: '',
     name: '视频',
-    code: 'SVideo',
+    code: 'video',
     icon: 'video',
     formData: {}
   },
   {
     id: '',
     name: '文本',
-    code: 'SText',
+    code: 'text',
     icon: 'text',
     formData: {}
   },
   {
     id: '',
     name: '幻灯片',
-    code: 'SSwiper',
+    code: 'swiper',
     icon: 'swiper',
     formData: {}
   },
   {
     id: '',
     name: '留白',
-    code: 'SBlank',
+    code: 'blank',
     icon: 'blank',
     formData: {}
   }
@@ -44,7 +44,7 @@ export const seniorBlocks: IBaseBlock[] = [
   {
     id: '',
     name: '多行',
-    code: 'SRow',
+    code: 'row',
     icon: 'row',
     nested: true,
     children: [[], []],
@@ -53,7 +53,7 @@ export const seniorBlocks: IBaseBlock[] = [
   {
     id: '',
     name: '多列',
-    code: 'SColumn',
+    code: 'column',
     icon: 'column',
     nested: true,
     children: [[], []],
@@ -62,7 +62,7 @@ export const seniorBlocks: IBaseBlock[] = [
   {
     id: '',
     name: '画布',
-    code: 'SCanvas',
+    code: 'canvas',
     icon: 'canvas',
     nested: true,
     children: [[], []],
@@ -75,14 +75,14 @@ export const canvasBlocks: IBaseBlock[] = [
   {
     id: '',
     name: '图片',
-    code: 'SImage',
+    code: 'image',
     icon: 'image',
     formData: {}
   },
   {
     id: '',
     name: '文本',
-    code: 'SText',
+    code: 'text',
     icon: 'text',
     formData: {}
   }

@@ -1,3 +1,4 @@
+import { markRaw, defineAsyncComponent, type Component } from 'vue';
 import { customAlphabet } from 'nanoid';
 import type { Viewport } from '@/types/editor';
 /**
@@ -24,4 +25,45 @@ export const sleep = (delay: number) => {
  */
 export const isMobileViewport = (value: Viewport) => {
   return value === 'mobile';
+};
+
+/**
+ * 让短横线的字符串 每个首字母变成大写
+ * @param str
+ * @returns
+ */
+export const capitalizeWords = (str: string) => {
+  return str
+    .toLowerCase()
+    .split('-')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join('');
+};
+
+/**
+ * 动态引入组件
+ * @param name 组件名
+ * @param importUrl 引入所有的组件 import.meta.glob('@/components/config/**')
+ */
+
+export const batchDynamicComponents = (
+  name: string,
+  importUrl: Record<string, Component>
+) => {
+  const components = importUrl; // /src/components/config/ConfigInput.vue: () => import("/src/components/config/ConfigInput.vue")
+  console.log(components, '====>importUrl');
+  const componentMap = Object.assign(
+    {},
+    ...Object.keys(components).map(item => {
+      const name = item?.split('/')?.pop()?.replace('.vue', '') || '';
+      return {
+        [name]: components[item]
+      };
+    })
+  );
+  console.log(capitalizeWords(name), componentMap);
+  const _name = capitalizeWords(name);
+  const importComponent = componentMap[_name];
+  if (!importComponent) return '';
+  return markRaw(defineAsyncComponent(importComponent));
 };

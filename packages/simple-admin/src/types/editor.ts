@@ -32,7 +32,7 @@ export interface IBaseBlock {
    * 配置的内容
    * 存储到数据库的配置,这里的数据其实应该是根据每个物料自己定义的schema中取的
    */
-  formData: BlockSchema[BlockSchemaKeys] | object;
+  formData: Partial<BlockSchema[BlockSchemaKeys]>;
 }
 
 export type IBaseBlockOrNull = IBaseBlock | null;

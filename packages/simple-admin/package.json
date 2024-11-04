@@ -16,6 +16,7 @@
   "dependencies": {
     "@simple/ui": "workspace:^",
     "@sinclair/typebox": "^0.33.17",
+    "deepmerge": "^4.3.1",
     "element-plus": "^2.8.6",
     "lodash": "^4.17.21",
     "nanoid": "^5.0.8",

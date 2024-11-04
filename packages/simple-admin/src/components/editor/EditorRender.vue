@@ -15,12 +15,38 @@
   </div>
 </template>
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
+import { useEditorStore } from '@/stores/editor';
 
 import type { IBaseBlock } from '@/types/editor';
 import { dragGroup } from './nested';
 
+const editorStore = useEditorStore();
 const list = ref<IBaseBlock[]>([]);
+
+/**
+ * 这两个watch 其实就是在中间编辑器拖动了组件进来时，需要更新右侧配置区的数据(新增)
+ * 在右侧配置区更改了数据之后，同时中间编辑器的数据也要更新
+ */
+watch(
+  () => list.value,
+  val => {
+    console.log(val, '======>val');
+    editorStore.setBlockConfig(val);
+  },
+  {
+    deep: true
+  }
+);
+watch(
+  () => editorStore.blockConfig,
+  val => {
+    list.value = val;
+  },
+  {
+    deep: true
+  }
+);
 
 const pageStyle = computed(() => {
   return {};

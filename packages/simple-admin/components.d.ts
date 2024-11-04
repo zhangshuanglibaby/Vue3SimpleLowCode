@@ -7,12 +7,14 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    ConfigInput: typeof import('./src/components/config/ConfigInput.vue')['default']
     copy: typeof import('./src/components/editor/EditorConfigBlock copy.vue')['default']
     EditorBlock: typeof import('./src/components/editor/EditorBlock.vue')['default']
     EditorBlockDrag: typeof import('./src/components/editor/EditorBlockDrag.vue')['default']
     EditorConfig: typeof import('./src/components/editor/EditorConfig.vue')['default']
     EditorConfigBlock: typeof import('./src/components/editor/EditorConfigBlock.vue')['default']
     EditorConfigPage: typeof import('./src/components/editor/EditorConfigPage.vue')['default']
+    EditorConfigRender: typeof import('./src/components/editor/EditorConfigRender.vue')['default']
     EditorHeader: typeof import('./src/components/editor/EditorHeader.vue')['default']
     EditorRender: typeof import('./src/components/editor/EditorRender.vue')['default']
     EditorRenderDrag: typeof import('./src/components/editor/EditorRenderDrag.vue')['default']
@@ -20,6 +22,9 @@ declare module 'vue' {
     ElCollapse: typeof import('element-plus/es')['ElCollapse']
     ElCollapseItem: typeof import('element-plus/es')['ElCollapseItem']
     ElEmpty: typeof import('element-plus/es')['ElEmpty']
+    ElForm: typeof import('element-plus/es')['ElForm']
+    ElFormItem: typeof import('element-plus/es')['ElFormItem']
+    ElInput: typeof import('element-plus/es')['ElInput']
     ElOption: typeof import('element-plus/es')['ElOption']
     ElSelect: typeof import('element-plus/es')['ElSelect']
     ElTooltip: typeof import('element-plus/es')['ElTooltip']

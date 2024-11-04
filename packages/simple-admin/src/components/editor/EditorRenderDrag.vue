@@ -27,7 +27,7 @@
         >
           <component
             :key="element.id"
-            :is="element.code"
+            :is="renderComponentCode(element)"
             :data="element.formData"
             :viewport="editorStore.viewport"
             :children="element.children"
@@ -55,7 +55,7 @@
           @click.stop="editorStore.setCurrentSelect(element)"
         >
           <component
-            :is="element.code"
+            :is="renderComponentCode(element)"
             :data="element.formData"
             :viewport="editorStore.viewport"
           />
@@ -69,6 +69,7 @@ import { computed } from 'vue';
 
 import { useEditorStore } from '@/stores/editor';
 import { move, nestedClass } from './nested';
+import { COMPONENT_PREFIX } from '@/config/index';
 
 defineOptions({
   name: 'editor-render-drag'
@@ -95,6 +96,13 @@ defineProps({
 });
 
 const editorStore = useEditorStore();
+
+// 渲染的组件名称
+const renderComponentCode = computed(() => {
+  return (element: { code: string }) => {
+    return COMPONENT_PREFIX + '-' + element.code;
+  };
+});
 
 // 激活选中组件的样式
 const activeClass = computed(() => {
