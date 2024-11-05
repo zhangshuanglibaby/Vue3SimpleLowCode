@@ -15,7 +15,7 @@
 import { computed, ref, watch } from 'vue';
 import { useEditorStore } from '@/stores/editor';
 // import { cloneDeep } from 'lodash';
-// import deepmerge from 'deepmerge';
+import deepmerge from 'deepmerge';
 import { blockSchema, type BlockSchemaKeys } from '@/config/schema';
 import { type IBaseBlock } from '@/types/editor';
 import { findNodeById } from '@/components/editor/nested';
@@ -76,7 +76,35 @@ const callback = (params: { data: object; id: string }) => {
   const blockConfig = editorStore.blockConfig || [];
   // 遍历状态管理存储的配置区数据， 在找对匹配的元素 更改对应的数据
   console.log(blockConfig, id, data, '=====>blockConfig, id, data');
-  const newBLockConfig = findNodeById(blockConfig, id, data);
+  const newBLockConfig = findNodeById(
+    blockConfig,
+    id,
+    (params: { array: IBaseBlock[]; node: IBaseBlock; index: number }) => {
+      const { array, node: element, index } = params;
+      const overwriteMerge = (sourceArray: any) => sourceArray;
+      // // 更新formData的值
+      array[index].formData = deepmerge(element.formData, data, {
+        arrayMerge: overwriteMerge
+      });
+      // // 针对 列的组件 需要特殊处理
+      if (element.nested && element.code === 'column') {
+        const cols = element.formData?.cols?.desktop || [0.5, 0.5];
+        const oldCols = element.children || [[], []];
+        if (oldCols.length > cols.length) {
+          // 判断如果列数 小于 原本的children长度，则代表是删除
+          // 计算要删除的数目
+          const count = oldCols.length - cols.length;
+          array[index].children?.splice(oldCols.length - count, count);
+        } else {
+          // 判断如果列数 大于 原本的children长度，则代表是新增
+          // 计算要新增的数目
+          const count = cols.length - oldCols.length;
+          const diff = Array.from({ length: count }, () => []);
+          array[index].children?.push(...diff);
+        }
+      }
+    }
+  );
   editorStore.setBlockConfig(newBLockConfig);
 
   // 更新下当前激活的组件配置

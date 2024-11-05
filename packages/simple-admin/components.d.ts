@@ -23,6 +23,7 @@ declare module 'vue' {
     EditorHeader: typeof import('./src/components/editor/EditorHeader.vue')['default']
     EditorRender: typeof import('./src/components/editor/EditorRender.vue')['default']
     EditorRenderDrag: typeof import('./src/components/editor/EditorRenderDrag.vue')['default']
+    EditorRenderHover: typeof import('./src/components/editor/EditorRenderHover.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCollapse: typeof import('element-plus/es')['ElCollapse']
     ElCollapseItem: typeof import('element-plus/es')['ElCollapseItem']

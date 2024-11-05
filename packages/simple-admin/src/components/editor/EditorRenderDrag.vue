@@ -24,7 +24,16 @@
           class="block-nested-render"
           :class="activeClass(element)"
           @click.stop="editorStore.setCurrentSelect(element)"
+          @mouseenter="hoverId = element.id"
+          @mouseleave="hoverId = ''"
         >
+          <Transition
+            v-show="hoverId === element.id"
+            :id="element.id"
+            :name="element.name"
+            @copy="copy"
+            @clear="clear"
+          ></Transition>
           <component
             :key="element.id"
             :is="renderComponentCode(element)"
@@ -53,7 +62,18 @@
           class="block-render"
           :class="activeClass(element)"
           @click.stop="editorStore.setCurrentSelect(element)"
+          @mouseenter="hoverId = element.id"
+          @mouseleave="hoverId = ''"
         >
+          <Transition name="fade">
+            <EditorRenderHover
+              v-show="hoverId === element.id"
+              :id="element.id"
+              :name="element.name"
+              @copy="copy"
+              @clear="clear"
+            />
+          </Transition>
           <component
             :is="renderComponentCode(element)"
             :data="element.formData"
@@ -65,11 +85,12 @@
   </Draggable>
 </template>
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 
 import { useEditorStore } from '@/stores/editor';
-import { move, nestedClass } from './nested';
+import { findNodeById, move, nestedClass, replaceNodeId } from './nested';
 import { COMPONENT_PREFIX } from '@/config/index';
+import type { IBaseBlock } from '@/types/editor';
 
 defineOptions({
   name: 'editor-render-drag'
@@ -95,6 +116,8 @@ defineProps({
   }
 });
 
+const hoverId = ref('');
+
 const editorStore = useEditorStore();
 
 // 渲染的组件名称
@@ -112,6 +135,35 @@ const activeClass = computed(() => {
     return { 'is-active': element.id === currentId };
   };
 });
+
+const handleNodeById = (
+  arr: IBaseBlock[],
+  nodeId: string,
+  type: 'copy' | 'clear'
+) => {
+  return findNodeById(
+    arr,
+    nodeId,
+    (params: { array: IBaseBlock[]; node: IBaseBlock; index: number }) => {
+      const { array, node, index } = params;
+      console.log(index, '=====index');
+      if (type === 'copy') array.splice(index, 0, replaceNodeId(node));
+      if (type === 'clear') array.splice(index, 1);
+    }
+  );
+};
+const copy = (id: string) => {
+  if (!editorStore.blockConfig.length) return;
+  const newBlockConfig = handleNodeById(editorStore.blockConfig, id, 'copy');
+  editorStore.setCurrentSelect(null);
+  editorStore.setBlockConfig(newBlockConfig);
+};
+const clear = (id: string) => {
+  if (!editorStore.blockConfig.length) return;
+  const newBlockConfig = handleNodeById(editorStore.blockConfig, id, 'clear');
+  editorStore.setCurrentSelect(null);
+  editorStore.setBlockConfig(newBlockConfig);
+};
 </script>
 <style lang="scss" scoped>
 .editor-render-drag {
