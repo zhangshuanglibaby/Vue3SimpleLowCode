@@ -15,7 +15,7 @@ import '@simple/ui/style';
 const app = createApp(App);
 
 app.use(ElementPlus);
-app.use(simpleUi);
+app.use<{ platform: 'editor' | 'user' }>(simpleUi, { platform: 'editor' });
 app.use(createPinia());
 app.use(router);
 

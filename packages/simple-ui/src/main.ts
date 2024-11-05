@@ -25,11 +25,15 @@ export const schema = {
 //     if (name) app.component(name, component)
 //   })
 // }
+const install = (app: App, options: { platform: 'editor' | 'user' }) => {
+  Object.keys(globalCom).forEach(name => {
+    app.component(name, globalCom[name])
+  })
+  app.provide('platform', options.platform)
+}
 // 导出方法
 export const schemaAllViewport = _schemaAllViewport
 // 导出前缀
 export const COMPONENT_PREFIX = _COMPONENT_PREFIX
 // 导出所有组件
-export default {
-  install: globalCom.install
-}
+export default { install }

@@ -14,8 +14,8 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
 import { useEditorStore } from '@/stores/editor';
-import { cloneDeep } from 'lodash';
-import deepmerge from 'deepmerge';
+// import { cloneDeep } from 'lodash';
+// import deepmerge from 'deepmerge';
 import { blockSchema, type BlockSchemaKeys } from '@/config/schema';
 import { type IBaseBlock } from '@/types/editor';
 import { findNodeById } from '@/components/editor/nested';
@@ -80,38 +80,38 @@ const callback = (params: { data: object; id: string }) => {
   editorStore.setBlockConfig(newBLockConfig);
 
   // 更新下当前激活的组件配置
-  if (editorStore.currentSelect?.id === id) {
-    const currentSelect = cloneDeep(editorStore.currentSelect);
-    const overwriteMerge = (sourceArray: any) => sourceArray;
-    currentSelect.formData = deepmerge(
-      (editorStore.currentSelect.formData || {}) as any,
-      data,
-      {
-        arrayMerge: overwriteMerge
-      }
-    );
-    // 针对 列的组件 需要特殊处理
-    if (
-      editorStore.currentSelect.nested &&
-      editorStore.currentSelect.code === 'column'
-    ) {
-      const cols = currentSelect.formData?.col?.desktop || [0.5, 0.5];
-      const oldCols = currentSelect.children;
-      if (oldCols.length > cols.length) {
-        // 判断如果列数 小于 原本的children长度，则代表是删除
-        // 计算要删除的数目
-        const count = oldCols.length - cols.length;
-        currentSelect.children.splice(oldCols.length - count, count);
-      } else {
-        // 判断如果列数 大于 原本的children长度，则代表是新增
-        // 计算要新增的数目
-        const count = cols.length - oldCols.length;
-        const diff = Array.from({ length: count }, () => []);
-        currentSelect.children.push(...diff);
-      }
-    }
-    editorStore.setCurrentSelect(currentSelect);
-  }
+  // if (editorStore.currentSelect?.id === id) {
+  //   const currentSelect = cloneDeep(editorStore.currentSelect);
+  //   const overwriteMerge = (sourceArray: any) => sourceArray;
+  //   currentSelect.formData = deepmerge(
+  //     (editorStore.currentSelect.formData || {}) as any,
+  //     data,
+  //     {
+  //       arrayMerge: overwriteMerge
+  //     }
+  //   );
+  //   // 针对 列的组件 需要特殊处理
+  //   if (
+  //     editorStore.currentSelect.nested &&
+  //     editorStore.currentSelect.code === 'column'
+  //   ) {
+  //     const cols = currentSelect.formData?.col?.desktop || [0.5, 0.5];
+  //     const oldCols = currentSelect.children;
+  //     if (oldCols.length > cols.length) {
+  //       // 判断如果列数 小于 原本的children长度，则代表是删除
+  //       // 计算要删除的数目
+  //       const count = oldCols.length - cols.length;
+  //       currentSelect.children.splice(oldCols.length - count, count);
+  //     } else {
+  //       // 判断如果列数 大于 原本的children长度，则代表是新增
+  //       // 计算要新增的数目
+  //       const count = cols.length - oldCols.length;
+  //       const diff = Array.from({ length: count }, () => []);
+  //       currentSelect.children.push(...diff);
+  //     }
+  //   }
+  //   editorStore.setCurrentSelect(currentSelect);
+  // }
 };
 </script>
 <style lang="scss" scoped>

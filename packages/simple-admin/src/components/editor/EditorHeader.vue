@@ -35,6 +35,7 @@ watch(viewport, val => {
   editorStore.setViewport(val);
   // 如果是移动端的 则默认是展开右侧的配置区
   editorStore.setConfigPanelShow(val === 'mobile');
+  editorStore.setCurrentSelect(null);
 });
 </script>
 <style lang="scss" scoped>
