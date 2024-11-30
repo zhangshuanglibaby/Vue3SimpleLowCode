@@ -1,6 +1,6 @@
 <template>
   <div class="editor-config-render">
-    <el-form label-width="auto">
+    <el-form label-width="auto" ref="ruleFormRef" :model="form" :rules="rules">
       <div v-for="(item, index) in list" :key="index">
         <component
           v-if="getComponent(item)"
@@ -8,24 +8,70 @@
           :data="item"
           :viewport="editorStore.viewport"
           @callback="callback"
+          @update="update"
         ></component>
       </div>
     </el-form>
   </div>
 </template>
 <script setup lang="ts">
+import { ref, watch } from "vue";
 import { useEditorStore } from '@/stores/editor';
 import { batchDynamicComponents } from '@/utils/index';
 
-defineProps({
+ const props = defineProps({
   list: {
     type: Array,
     default: () => []
+  },
+  schema: {
+    type: Object,
+    default: () => {}
   }
 });
 const emit = defineEmits(['callback']);
 
 const editorStore = useEditorStore();
+
+const ruleFormRef = ref();
+const form = ref<any>({});
+
+const transfer = (b: any, key='default'): any => {
+  if(!b) return []
+  return Object.fromEntries(
+    Object.entries(b.properties).map((item: any) => {
+      const [keyP, valueP] = item
+      if(valueP.properties) return [keyP, transfer(valueP, key)]
+      return [keyP, valueP[key]]
+    })
+  )
+}
+const rules = ref(transfer(props.schema, 'rules'));
+console.log(rules.value, "======>rules");
+const update = (params: any) => {
+  console.log(params, "=====>params");
+  const list = Object.entries(params || {})
+  list.forEach(([key, value]) => {
+    form.value[key] = value
+  })
+  console.log(form.value, "=====>form");
+}
+
+const submitForm = () => {
+  setTimeout(() => {
+    if(!ruleFormRef.value) return;
+    ruleFormRef.value.validate((valid: any, fields: any) => {
+      console.log(valid, fields)
+    })
+  }, 100)
+}
+submitForm();
+watch(
+  () => props.list,
+  () => {
+    submitForm()
+  }
+)
 
 // 渲染的组件名
 const getComponent = (item: any) => {

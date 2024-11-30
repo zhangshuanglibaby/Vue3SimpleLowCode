@@ -1,15 +1,18 @@
 <template>
   <div class="config-files">
-    <el-form-item :label="title">
+    <el-form-item :label="title" :prop="key + '.' + viewport">
       <img v-if="src" :src="src" class="image" @click="fileClick" />
       <div v-else class="file" @click="fileClick">
         <v-icon icon="upload" class="icon"></v-icon>
       </div>
+      <el-input v-model="src" style="display: none;"></el-input>
     </el-form-item>
   </div>
 </template>
 <script setup lang="ts">
 import { ref, toRefs, watch } from 'vue';
+// import { useFormItem } from "element-plus";
+// const { formItem } = useFormItem();
 
 const props = defineProps({
   data: {
@@ -22,7 +25,7 @@ const props = defineProps({
   }
 });
 
-const emit = defineEmits(['callback']);
+const emit = defineEmits(['callback', 'update']);
 const { data } = toRefs(props);
 console.log(data.value, '======>data.value');
 const { formData, id, key } = data.value;
@@ -44,6 +47,8 @@ watch(
   }
 );
 watch(src, value => {
+  // formItem?.validate('change').catch(err:any) => console.warn(err))
+
   let data = {};
   const _value = value || '';
   // 这里的formData 有点混乱
@@ -57,21 +62,27 @@ watch(src, value => {
      */
     data = { [props.viewport]: _value };
   }
-  console.log('发射了了更改图片2');
+  console.log('发射了了更改图片2',data );
   emit('callback', {
     data: {
       [key]: data
     },
     id
   });
+  emit("update", {
+    [key]: data
+  })
+},
+{
+  immediate: true
 });
 
 const fileClick = () => {
   const list = [
-    'https://images.unsplash.com/photo-1730283207724-12fb6efc4890?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    'https://images.unsplash.com/photo-1730248202596-fbdef5624120?q=80&w=2800&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    'https://images.unsplash.com/photo-1711619034401-6eb679e5203c?q=80&w=2864&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    'https://images.unsplash.com/photo-1729836599373-9517a778b798?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+    'https://inews.gtimg.com/om_bt/O2inS9Nb3e5INdJojYXRewcLXz2QWLv-amhBF5DooxMDwAA/641',
+    'https://inews.gtimg.com/om_bt/OQi1JP5qEZ0D9gCVsRe4W6KQRggJGw4xdVNC2ShSgzKrgAA/641',
+    'https://inews.gtimg.com/om_bt/OAVMydtx9BsJxf5i_thi4Oll9sR1px-Esmtv6UHSxoisEAA/641',
+    'https://inews.gtimg.com/om_bt/OTOK89rgS04YCICQqXqlbEpF56JbsSme41LosbgK5LrQMAA/641'
   ];
   const randomIndex = Math.floor(Math.random() * list.length);
   src.value = list[randomIndex];
@@ -85,6 +96,7 @@ const fileClick = () => {
     width: 80px;
     height: 80px;
     border: 1px dashed var(--color-border);
+    box-shadow: 0 0 0 1px var(--color-border) inset;
     border-radius: 4px;
     background: var(--color-config-block-bg);
     display: flex;
@@ -97,6 +109,12 @@ const fileClick = () => {
     width: 82px;
     height: 82px;
     object-fit: cover;
+  }
+  .is-error {
+    .file,
+    .image {
+      box-shadow: 0 0 0 1px var(--el-color-danger) inset;
+    }
   }
   .icon {
     width: 26px;

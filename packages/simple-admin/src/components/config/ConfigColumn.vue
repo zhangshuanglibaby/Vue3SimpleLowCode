@@ -34,7 +34,7 @@ const props = defineProps({
   }
 });
 
-const emit = defineEmits(['callback']);
+const emit = defineEmits(['callback', 'update']);
 
 const { data } = toRefs(props);
 const { id, key, formData } = data.value;
@@ -74,6 +74,9 @@ watch(column, value => {
     },
     id
   });
+  emit("update", {
+    [key]: data
+  })
 });
 
 // 创建指定长度的数组

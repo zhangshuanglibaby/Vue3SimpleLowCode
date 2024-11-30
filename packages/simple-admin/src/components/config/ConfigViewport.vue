@@ -27,7 +27,7 @@ const props = defineProps({
   }
 });
 
-const emit = defineEmits(['callback']);
+const emit = defineEmits(['callback', 'update']);
 
 const { data } = toRefs(props);
 const { formData, key, id } = data.value;
@@ -90,6 +90,9 @@ watch(
     );
     list.value[defaultValueIndex].default = true;
     change(list.value[defaultValueIndex].value);
+    emit("update", {
+      [key]: list.value[defaultValueIndex].value
+    })
   },
   {
     immediate: true

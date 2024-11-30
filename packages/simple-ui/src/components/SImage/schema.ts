@@ -82,34 +82,62 @@ import { schemaAllViewport } from '@/utils/components'
 const display = Type.Boolean({
   code: 'config-viewport', // 这里是对应的 右侧配置的组件
   title: '屏幕',
-  default: true
+  default: true,
+  errorMessage: {
+    required: "选择一项即可"
+  },
+  rules: [{ required: true, message: "选择一项即可", trigger: "change" }]
 })
 
 const src = Type.String({
   code: 'config-files', // 这里是对应的 右侧配置的组件
   title: '图片',
-  default: ''
+  default: '',
+  minLength: 1,
+  errorMessage: {
+    required: "最少1个字符",
+    minLength: "最少1个字符"
+  },
+  rules: [{ required: true, min:1,  message: "最少1个字符", trigger: "change" }]
 })
 
 const link = Type.String({
   code: 'config-input', // 这里是对应的 右侧配置的组件
   title: '链接',
   default: '',
-  placeholder: '请输入链接'
+  placeholder: '请输入链接',
+  minLength: 1,
+  errorMessage: {
+    required: "最少1个字符",
+    minLength: "最少1个字符"
+  },
+  rules: [{ required: true, min:1,  message: "最少1个字符", trigger: "change" }]
 })
 
 const width = Type.String({
   code: 'config-input', // 这里是对应的 右侧配置的组件
   title: '宽度',
   default: '100%',
-  placeholder: '请输入宽度'
+  placeholder: '请输入宽度',
+  minLength: 1,
+  errorMessage: {
+    required: "最少1个字符",
+    minLength: "最少1个字符"
+  },
+  rules: [{ required: true, min:1,  message: "最少1个字符", trigger: "change" }]
 })
 
 const height = Type.String({
   code: 'config-input', // 这里是对应的 右侧配置的组件
   title: '高度',
   default: '295px',
-  placeholder: '请输入高度'
+  placeholder: '请输入高度',
+  minLength: 1,
+  errorMessage: {
+    required: "最少1个字符",
+    minLength: "最少1个字符"
+  },
+  rules: [{ required: true, min:1,  message: "最少1个字符", trigger: "change" }]
 })
 
 // 可以封装一个方法 再简化下写法

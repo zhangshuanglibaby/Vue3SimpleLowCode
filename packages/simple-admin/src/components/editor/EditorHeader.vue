@@ -13,7 +13,7 @@
         <Icon :icon="icon.preview" />
         预览
       </el-button>
-      <el-button type="primary">
+      <el-button type="primary" @click="submit">
         <Icon :icon="icon.publish" />
         发布
       </el-button>
@@ -21,12 +21,21 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { nextTick, ref, watch } from 'vue';
+import Ajv from "ajv";
+import AjvErrors from "ajv-errors";
 import { useEditorStore } from '@/stores/editor';
 
 import type { Viewport } from '@/types/editor';
 import icon from '@/config/icon';
+import { blockSchema, type BlockSchemaKeys} from "@/config/schema";
+import { findNodeById } from "./nested";
 
+const ajv = new Ajv({ allErrors: true })
+ajv.addKeyword({
+  keyword: ['placeholder', 'rules', 'code']
+})
+AjvErrors(ajv);
 const viewport = ref<Viewport>('desktop');
 
 const editorStore = useEditorStore();
@@ -37,6 +46,41 @@ watch(viewport, val => {
   editorStore.setConfigPanelShow(val === 'mobile');
   editorStore.setCurrentSelect(null);
 });
+
+const validateAll = async(item: any) => {
+  const { value, schema, id } = item;
+  const validate = ajv.compile(schema);
+  const valid = validate(value);
+  if(!valid) {
+    const path = validate.errors?.[0]?.instancePath;
+    if(path) {
+      const [, , pathViewport] = path.split("/");
+      viewport.value = pathViewport as Viewport;
+      await nextTick();
+      editorStore.setViewport(pathViewport as Viewport);
+      editorStore.setConfigPanelShow(true);
+      findNodeById(editorStore.blockConfig, id, (params) => {
+        const { node } = params;
+        editorStore.setCurrentSelect(node)
+      })
+    }
+    console.warn('ajv error', id, validate.errors?.[0]?.instancePath, validate.errors?.[0]?.message)
+  }
+  console.warn('ajv submit')
+}
+
+const submit = () => {
+  const list = editorStore.blockConfig.map((item) => {
+    return {
+      id: item.id,
+      value: item.formData,
+      schema: blockSchema[item.code as BlockSchemaKeys]
+    }
+  })
+  list.forEach((item) => {
+    validateAll(item)
+  })
+}
 </script>
 <style lang="scss" scoped>
 .editor-header {

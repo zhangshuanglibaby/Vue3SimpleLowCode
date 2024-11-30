@@ -1,6 +1,6 @@
 <template>
   <div class="editor-config-block">
-    <EditorConfigRender :list="list" @callback="callback">
+    <EditorConfigRender :list="list" :schema="schema" @callback="callback">
       <div v-if="!currentSelect">
         <el-empty description="请在左侧拖入组件后，点击选中组件">
           <template #image>
@@ -16,7 +16,7 @@ import { computed, ref, watch } from 'vue';
 import { useEditorStore } from '@/stores/editor';
 // import { cloneDeep } from 'lodash';
 import deepmerge from 'deepmerge';
-import { blockSchema, type BlockSchemaKeys } from '@/config/schema';
+import { blockSchema, type BlockSchemaKeys, type BlockSchema } from '@/config/schema';
 import { type IBaseBlock } from '@/types/editor';
 import { findNodeById } from '@/components/editor/nested';
 
@@ -26,6 +26,7 @@ const editorStore = useEditorStore();
 const currentSelect = computed(() => editorStore.currentSelect);
 
 const list = ref<IBaseBlock[]>([]);
+const schema = ref<BlockSchema[BlockSchemaKeys]>()
 
 watch(
   () => editorStore.currentSelect,
@@ -37,6 +38,10 @@ watch(
       list.value = [];
       return;
     }
+
+    schema.value = blockSchema[code];
+    console.log(schema.value, "====>schema.value");
+
     const { id, formData } = value;
 
     // 这是在父级绑定id和formData
