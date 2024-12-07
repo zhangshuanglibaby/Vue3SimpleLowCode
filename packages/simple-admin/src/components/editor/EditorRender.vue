@@ -49,7 +49,8 @@ watch(
 );
 
 const pageStyle = computed(() => {
-  return {};
+  const { background } = editorStore.pageConfig;
+  return { 'background': background ? background[editorStore.viewport] : '#fff' }
 });
 
 const pageClass = computed(() => {

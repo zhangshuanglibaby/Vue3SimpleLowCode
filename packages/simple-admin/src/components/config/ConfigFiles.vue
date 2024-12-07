@@ -1,10 +1,19 @@
 <template>
   <div class="config-files">
     <el-form-item :label="title" :prop="key + '.' + viewport">
-      <img v-if="src" :src="src" class="image" @click="fileClick" />
+      <!-- <img v-if="src" :src="src" class="image" @click="fileClick" />
       <div v-else class="file" @click="fileClick">
         <v-icon icon="upload" class="icon"></v-icon>
-      </div>
+      </div> -->
+      <el-upload
+        class="avatar-uploader"
+        action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
+        :show-file-list="false"
+        :http-request="httpRequest"
+      >
+        <img v-if="src" :src="src" class="avatar" />
+        <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
+      </el-upload>
       <el-input v-model="src" style="display: none;"></el-input>
     </el-form-item>
   </div>
@@ -13,6 +22,7 @@
 import { ref, toRefs, watch } from 'vue';
 // import { useFormItem } from "element-plus";
 // const { formItem } = useFormItem();
+import { mediaUploadAsync } from "@/api/upload"
 
 const props = defineProps({
   data: {
@@ -62,7 +72,6 @@ watch(src, value => {
      */
     data = { [props.viewport]: _value };
   }
-  console.log('发射了了更改图片2',data );
   emit('callback', {
     data: {
       [key]: data
@@ -77,17 +86,25 @@ watch(src, value => {
   immediate: true
 });
 
-const fileClick = () => {
-  const list = [
-    'https://inews.gtimg.com/om_bt/O2inS9Nb3e5INdJojYXRewcLXz2QWLv-amhBF5DooxMDwAA/641',
-    'https://inews.gtimg.com/om_bt/OQi1JP5qEZ0D9gCVsRe4W6KQRggJGw4xdVNC2ShSgzKrgAA/641',
-    'https://inews.gtimg.com/om_bt/OAVMydtx9BsJxf5i_thi4Oll9sR1px-Esmtv6UHSxoisEAA/641',
-    'https://inews.gtimg.com/om_bt/OTOK89rgS04YCICQqXqlbEpF56JbsSme41LosbgK5LrQMAA/641'
-  ];
-  const randomIndex = Math.floor(Math.random() * list.length);
-  src.value = list[randomIndex];
-  console.log('点击了更改图片1');
-};
+// const fileClick = () => {
+//   const list = [
+//     'https://inews.gtimg.com/om_bt/O2inS9Nb3e5INdJojYXRewcLXz2QWLv-amhBF5DooxMDwAA/641',
+//     'https://inews.gtimg.com/om_bt/OQi1JP5qEZ0D9gCVsRe4W6KQRggJGw4xdVNC2ShSgzKrgAA/641',
+//     'https://inews.gtimg.com/om_bt/OAVMydtx9BsJxf5i_thi4Oll9sR1px-Esmtv6UHSxoisEAA/641',
+//     'https://inews.gtimg.com/om_bt/OTOK89rgS04YCICQqXqlbEpF56JbsSme41LosbgK5LrQMAA/641'
+//   ];
+//   const randomIndex = Math.floor(Math.random() * list.length);
+//   src.value = list[randomIndex];
+//   console.log('点击了更改图片1');
+// };
+
+const httpRequest = async (e: any) => {
+  console.log(e, "====>e")
+  const formData = new FormData();
+  formData.append('file', e.file)
+  const url = await mediaUploadAsync(formData)
+  src.value = url;
+}
 </script>
 <style lang="scss" scoped>
 .config-files {
@@ -119,6 +136,29 @@ const fileClick = () => {
   .icon {
     width: 26px;
     height: 26px;
+  }
+  :deep(.avatar-uploader .el-upload) {
+    border: 1px dashed var(--el-border-color);
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: var(--el-transition-duration-fast);
+  }
+
+  :deep(.avatar-uploader .el-upload:hover ){
+    border-color: var(--el-color-primary);
+  }
+  :deep(.avatar) {
+    width: 178px;
+    height: 178px;
+  }
+  :deep(.el-icon.avatar-uploader-icon) {
+    font-size: 28px;
+    color: #8c939d;
+    width: 178px;
+    height: 178px;
+    text-align: center;
   }
 }
 </style>

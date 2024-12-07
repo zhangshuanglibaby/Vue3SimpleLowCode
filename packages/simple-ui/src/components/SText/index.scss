@@ -1,0 +1,21 @@
+/*
+  不能这么写，需要把前缀的方法定义成公用方法
+*/
+// .s-image {
+//   .image {
+
+//   }
+// }
+@use "@/assets/styles/_config.scss" as *;
+@use "@/assets/styles/_mixins.scss" as *;
+
+@include b("text") {
+	.text {
+		width: 100%;
+		display: block;
+		&.no-value {
+			height: 300px;
+			background-color: rgba($color: #000000, $alpha: 0.05);
+		}
+	}
+}

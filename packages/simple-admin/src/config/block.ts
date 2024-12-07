@@ -47,7 +47,7 @@ export const seniorBlocks: IBaseBlock[] = [
     code: 'row',
     icon: 'row',
     nested: true,
-    children: [[], []],
+    children: [[]],
     formData: {}
   },
   {
@@ -65,7 +65,7 @@ export const seniorBlocks: IBaseBlock[] = [
     code: 'canvas',
     icon: 'canvas',
     nested: true,
-    children: [[], []],
+    children: [[]],
     formData: {}
   }
 ];

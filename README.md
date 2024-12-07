@@ -166,6 +166,32 @@ monorepo是一种项目代码管理方式，指单个仓库中管理多个项目
 
 解决每次更改simple-ui库的代码时，都要手动的去重新打包 宿主环境才能更新依赖
 
+- 搭建服务端 simple-server
+  - 安装express npm install express --save
+  - 解决node热更新 下载nodemon
+  - 解决跨域 下载 cors
+  - 安装mysql：https://downloads.mysql.com/
+  - 连接navicat
+    - navicat下新建simple数据库
+  - node连接数据库
+    - 安装mysql2: https://sidorares.github.io/node-mysql2/zh-CN/docs
+    - 封装mysql的内容
+    - 封装响应的格式
+    - 全局级别的中间件
+      - 下载npm i express-async-errors
+    - 验证参数，在node中使用验证库 npm i joi
+    - 验证的中间件
+    - ORM库 typeORM。Prisma
+    - jwt: node用的库 jsonwebtoken
+      - 针对解密，express提供了一个中间件 express-jwt,可以自动在header里面取到相应的token，然后去验证token是否生效
+    - 鉴权中间件
+    - 文件上传
+      - 阿里云oss
+      - multer，nodejs的中间件，主要用于上传文件，处理form-data类型的表单数据
+      - multer-aliyun-oss 集成了阿里云oss的内容
+    - 富文本
+      - vue-quill: pnpm add @vueup/vue-quill@latest --save
+
 问题：
 
 1. 插件引入vue的版本问题

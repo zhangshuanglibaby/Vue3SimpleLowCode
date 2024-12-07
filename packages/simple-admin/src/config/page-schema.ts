@@ -5,6 +5,12 @@
 import { Type, type Static } from '@sinclair/typebox';
 import { schemaAllViewport } from '@simple/ui';
 
+const text = Type.String({
+  code: 'config-text',
+  title: '富文本',
+  defaultValue: ''
+});
+
 const background = Type.String({
   code: 'config-color',
   title: '背景',
@@ -30,6 +36,7 @@ const description = Type.String({
 });
 
 const T = Type.Object({
+  text: schemaAllViewport(text),
   background: schemaAllViewport(background),
   title: schemaAllViewport(title),
   keywords: schemaAllViewport(keywords),

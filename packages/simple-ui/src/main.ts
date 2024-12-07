@@ -6,6 +6,8 @@ import type { App } from 'vue'
 import globalCom from './components'
 import SImageSchema from '@/components/SImage/schema'
 import SColumnSchema from '@/components/SColumn/schema'
+import STextSchema from '@/components/SText/schema'
+import SRowSchema from '@/components/SRow/schema'
 
 import { schemaAllViewport as _schemaAllViewport } from '@/utils/components'
 import { COMPONENT_PREFIX as _COMPONENT_PREFIX } from '@/config/index'
@@ -13,7 +15,9 @@ import { COMPONENT_PREFIX as _COMPONENT_PREFIX } from '@/config/index'
 // 导出物料的schema相关数据
 export const schema = {
   image: SImageSchema,
-  column: SColumnSchema
+  column: SColumnSchema,
+  text: STextSchema,
+  row: SRowSchema
 }
 
 // const globalComponents = [SImage]

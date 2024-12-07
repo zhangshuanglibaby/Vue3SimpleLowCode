@@ -27,13 +27,22 @@
           @mouseenter="hoverId = element.id"
           @mouseleave="hoverId = ''"
         >
-          <Transition
+          <!-- <Transition
             v-show="hoverId === element.id"
             :id="element.id"
             :name="element.name"
             @copy="copy"
             @clear="clear"
-          ></Transition>
+          ></Transition> -->
+          <Transition name="fade">
+            <EditorRenderHover
+              v-show="hoverId === element.id"
+              :id="element.id"
+              :name="element.name"
+              @copy="copy"
+              @clear="clear"
+            />
+          </Transition>
           <component
             :key="element.id"
             :is="renderComponentCode(element)"
@@ -72,6 +81,7 @@
               :name="element.name"
               @copy="copy"
               @clear="clear"
+              style="transform: translateX(-50%) translateY(-10px);"
             />
           </Transition>
           <component
@@ -187,7 +197,7 @@ const clear = (id: string) => {
   }
   .nested-item {
     border: 1px solid var(--color-edit-render-block-border);
-    background: var(--color-edit-render-block-bg);
+    // background: var(--color-edit-render-block-bg);
     height: 100%;
     min-height: inherit;
     & + .nested-item {

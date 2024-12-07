@@ -49,7 +49,6 @@ const transfer = (b: any, key='default'): any => {
 const rules = ref(transfer(props.schema, 'rules'));
 console.log(rules.value, "======>rules");
 const update = (params: any) => {
-  console.log(params, "=====>params");
   const list = Object.entries(params || {})
   list.forEach(([key, value]) => {
     form.value[key] = value

@@ -14,10 +14,15 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@element-plus/icons-vue": "^2.3.1",
     "@simple/ui": "workspace:^",
     "@sinclair/typebox": "^0.33.17",
+    "@types/crypto-js": "^4.2.2",
+    "@vueup/vue-quill": "^1.2.0",
     "ajv": "^8.17.1",
     "ajv-errors": "^3.0.0",
+    "axios": "^1.7.8",
+    "crypto-js": "^4.2.0",
     "deepmerge": "^4.3.1",
     "element-plus": "^2.8.6",
     "lodash": "^4.17.21",

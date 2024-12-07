@@ -1,6 +1,8 @@
 import { markRaw, defineAsyncComponent, type Component } from 'vue';
 import { customAlphabet } from 'nanoid';
 import type { Viewport } from '@/types/editor';
+import CryptoJS from "crypto-js";
+
 /**
  * 随机id生成
  * @param length 长度
@@ -67,3 +69,14 @@ export const batchDynamicComponents = (
   if (!importComponent) return '';
   return markRaw(defineAsyncComponent(importComponent));
 };
+
+/**
+ * md5 加密
+ * @param str
+ * @returns
+ */
+export const md5 = (str: string) => {
+  if(!str) return ''
+  const hash = CryptoJS.MD5(str)
+  return hash.toString(CryptoJS.enc.Hex)
+}
