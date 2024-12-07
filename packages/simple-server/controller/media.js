@@ -11,8 +11,8 @@ export class MediaController {
         storage: MAO({
           config: {
             region: 'oss-cn-shenzhen',
-            accessKeyId: 'LTAI5tBUY5Q2EK98E8rG36Vw',
-            accessKeySecret: 'rXhtQDfHiQmt1BsXieY8KbWXxiyQuM',
+            accessKeyId: 'xxx',
+            accessKeySecret: 'xxx',
             bucket: 'simple-code-oss',
           }
         })
