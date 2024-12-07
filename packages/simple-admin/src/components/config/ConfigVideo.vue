@@ -1,7 +1,7 @@
 <template>
-  <div class="config-files">
+  <div class="config-video">
     <el-form-item :label="title" :prop="key + '.' + viewport">
-      <VUpload v-model="fileList" />
+      <VUpload v-model="fileList" type="video" />
     </el-form-item>
   </div>
 </template>
@@ -78,25 +78,7 @@ watch(fileList, value => {
 });
 </script>
 <style lang="scss" scoped>
-.config-files {
-  .image,
-  .file {
-    width: 80px;
-    height: 80px;
-    border: 1px dashed var(--color-border);
-    box-shadow: 0 0 0 1px var(--color-border) inset;
-    border-radius: 4px;
-    background: var(--color-config-block-bg);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-  }
-  .image {
-    border: 0;
-    width: 82px;
-    height: 82px;
-    object-fit: cover;
-  }
+.config-video {
+  position: relative;
 }
 </style>

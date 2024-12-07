@@ -8,6 +8,7 @@ import SImageSchema from '@/components/SImage/schema'
 import SColumnSchema from '@/components/SColumn/schema'
 import STextSchema from '@/components/SText/schema'
 import SRowSchema from '@/components/SRow/schema'
+import SVideo from '@/components/SVideo/schema'
 
 import { schemaAllViewport as _schemaAllViewport } from '@/utils/components'
 import { COMPONENT_PREFIX as _COMPONENT_PREFIX } from '@/config/index'
@@ -17,7 +18,8 @@ export const schema = {
   image: SImageSchema,
   column: SColumnSchema,
   text: STextSchema,
-  row: SRowSchema
+  row: SRowSchema,
+  video: SVideo
 }
 
 // const globalComponents = [SImage]

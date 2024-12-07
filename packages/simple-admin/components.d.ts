@@ -13,7 +13,9 @@ declare module 'vue' {
     ConfigFile: typeof import('./src/components/config/ConfigFile.vue')['default']
     ConfigFiles: typeof import('./src/components/config/ConfigFiles.vue')['default']
     ConfigInput: typeof import('./src/components/config/ConfigInput.vue')['default']
+    ConfigSwitch: typeof import('./src/components/config/ConfigSwitch.vue')['default']
     ConfigText: typeof import('./src/components/config/ConfigText.vue')['default']
+    ConfigVideo: typeof import('./src/components/config/ConfigVideo.vue')['default']
     ConfigViewport: typeof import('./src/components/config/ConfigViewport.vue')['default']
     copy: typeof import('./src/components/editor/EditorConfigBlock copy.vue')['default']
     EditorBlock: typeof import('./src/components/editor/EditorBlock.vue')['default']
@@ -38,6 +40,7 @@ declare module 'vue' {
     ElInput: typeof import('element-plus/es')['ElInput']
     ElOption: typeof import('element-plus/es')['ElOption']
     ElSelect: typeof import('element-plus/es')['ElSelect']
+    ElSwitch: typeof import('element-plus/es')['ElSwitch']
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
     ElUpload: typeof import('element-plus/es')['ElUpload']
     RouterLink: typeof import('vue-router')['RouterLink']
@@ -46,5 +49,6 @@ declare module 'vue' {
     VIconTooltip: typeof import('./src/components/base/VIconTooltip.vue')['default']
     Vselect: typeof import('./src/components/base/Vselect.vue')['default']
     VSelect: typeof import('./src/components/base/VSelect.vue')['default']
+    VUpload: typeof import('./src/components/base/VUpload.vue')['default']
   }
 }
