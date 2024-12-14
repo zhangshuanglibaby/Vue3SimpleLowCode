@@ -29,6 +29,14 @@ export type SImagePropsDataType = {
    * 图片高度
    */
   height: ViewportType
+  /**
+   * 图片居上
+   */
+  top?: ViewportType
+  /**
+   * 图片居左
+   */
+  left?: ViewportType
 }
 
 export const props = {
@@ -54,6 +62,14 @@ export const props = {
       height: {
         desktop: '',
         mobile: ''
+      },
+      top: {
+        desktop: '',
+        mobile: ''
+      },
+      left: {
+        desktop: '',
+        mobile: ''
       }
     })
   },
@@ -64,5 +80,9 @@ export const props = {
       // 校验viewport的值正不正确
       return ['desktop', 'mobile'].includes(val)
     }
+  },
+  parent: {
+    type: String,
+    default: ''
   }
 }

@@ -77,13 +77,15 @@ export const canvasBlocks: IBaseBlock[] = [
     name: '图片',
     code: 'image',
     icon: 'image',
-    formData: {}
+    formData: {},
+    parent: 'canvas' // 记录父级是不是canvas
   },
   {
     id: '',
     name: '文本',
     code: 'text',
     icon: 'text',
-    formData: {}
+    formData: {},
+    parent: 'canvas'
   }
 ];

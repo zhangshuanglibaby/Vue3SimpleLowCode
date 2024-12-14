@@ -17,7 +17,7 @@
     </div>
     <div class="right">
       <el-collapse v-model="activeNames" v-show="activeMenu === 0">
-        <el-collapse-item name="1">
+        <el-collapse-item name="1" v-show="!isCanvasCurrentSelect">
           <template #title>
             <span class="collapse-title">基础组件</span>
           </template>
@@ -27,7 +27,7 @@
             :group="{ name: dragGroup, pull: 'clone', put: false }"
           />
         </el-collapse-item>
-        <el-collapse-item name="2">
+        <el-collapse-item name="2" v-show="!isCanvasCurrentSelect">
           <template #title>
             <span class="collapse-title">高级组件</span>
           </template>
@@ -37,14 +37,25 @@
             :group="{ name: dragGroup, pull: 'clone', put: false }"
           />
         </el-collapse-item>
+        <el-collapse-item name="3" v-show="isCanvasCurrentSelect">
+          <template #title>
+            <span class="collapse-title">画布组件</span>
+          </template>
+          <EditorBlockCanvas :list="canvasBlockList" />
+        </el-collapse-item>
       </el-collapse>
     </div>
   </div>
 </template>
 <script setup lang="ts">
-import { ref } from 'vue';
-import { baseBlocks, seniorBlocks } from '@/config/block';
+import { computed, ref } from 'vue';
+import { baseBlocks, seniorBlocks, canvasBlocks } from '@/config/block';
 import { dragGroup } from './nested';
+import { useEditorStore } from "@/stores/editor";
+
+import EditorBlockCanvas from "./EditorBlockCanvas.vue";
+
+const editorStore = useEditorStore();
 
 const menuList = ref([
   {
@@ -60,9 +71,12 @@ const menuList = ref([
 ]);
 
 const activeMenu = ref(0);
-const activeNames = ref(['1', '2']);
+const activeNames = ref(['1', '2', '3']);
 const baseBlockList = ref(baseBlocks);
 const seniorBlockList = ref(seniorBlocks);
+const canvasBlockList = ref(canvasBlocks);
+
+const isCanvasCurrentSelect = computed(() => editorStore.currentSelect?.code === 'canvas')
 </script>
 <style lang="scss" scoped>
 .editor-block {

@@ -5,7 +5,7 @@ type ViewportType = {
   desktop: string
   mobile: string
 }
-export type SRowPropsDataType = {
+export type SCanvasPropsDataType = {
   /**
    * 展示屏幕
    */
@@ -17,13 +17,18 @@ export type SRowPropsDataType = {
    * 背景
    */
   background: ViewportType
+
+  /**
+   * 高度
+   */
+  height: ViewportType
 }
 
-export type SRowPropsList = any[][]
+export type SCanvasPropsList = any[][]
 
 export const props = {
   data: {
-    type: Object as PropType<SRowPropsDataType>,
+    type: Object as PropType<SCanvasPropsDataType>,
     default: () => ({
       display: {
         desktop: '',
@@ -32,11 +37,15 @@ export const props = {
       background: {
         desktop: '',
         mobile: ''
+      },
+      height: {
+        desktop: '',
+        mobile: ''
       }
     })
   },
   children: {
-    type: Array as PropType<SRowPropsList>,
+    type: Array as PropType<SCanvasPropsList>,
     default: () => [[]]
   },
   viewport: {

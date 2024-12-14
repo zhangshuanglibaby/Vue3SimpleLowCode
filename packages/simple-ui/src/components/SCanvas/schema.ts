@@ -19,12 +19,26 @@ const background = Type.String({
   default: ''
 })
 
+const height = Type.String({
+  code: 'config-input', // 这里是对应的 右侧配置的组件
+  title: '高度',
+  default: '350px',
+  placeholder: "请输入高度",
+  minLength: 1,
+  errorMessage: {
+    required: "最少1个字符",
+    minLength: "最少1个字符"
+  },
+  rules: [{ required: true, min: 1, message: "最少1个字符", trigger: "change" }]
+})
+
 const schema = Type.Object({
   display: schemaAllViewport(display),
-  background: schemaAllViewport(background)
+  background: schemaAllViewport(background),
+  height: schemaAllViewport(height)
 })
 
 // schema 的类型
-export type SRowSchemaType = Static<typeof schema>
+export type SCanvasSchemaType = Static<typeof schema>
 
 export default schema

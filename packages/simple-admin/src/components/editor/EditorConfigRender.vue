@@ -1,7 +1,7 @@
 <template>
   <div class="editor-config-render">
     <el-form label-width="auto" ref="ruleFormRef" :model="form" :rules="rules">
-      <div v-for="(item, index) in list" :key="index">
+      <!-- <div v-for="(item, index) in list" :key="index">
         <component
           v-if="getComponent(item)"
           :is="getComponent(item)"
@@ -10,12 +10,25 @@
           @callback="callback"
           @update="update"
         ></component>
-      </div>
+      </div> -->
+      <transition-group name="fade">
+        <div v-for="(item, index) in list" :key="index">
+          <component
+          v-if="
+          (!itemCanvas(item) && getComponent(item)) ||
+          (itemCanvas(item) && inCanvas && getComponent(item))"
+          :is="getComponent(item)"
+          :data="item"
+          :viewport="editorStore.viewport"
+          @callback="callback"
+          @update="update"></component>
+        </div>
+      </transition-group>
     </el-form>
   </div>
 </template>
 <script setup lang="ts">
-import { ref, watch } from "vue";
+import { computed, ref, watch } from "vue";
 import { useEditorStore } from '@/stores/editor';
 import { batchDynamicComponents } from '@/utils/index';
 
@@ -35,6 +48,11 @@ const editorStore = useEditorStore();
 
 const ruleFormRef = ref();
 const form = ref<any>({});
+
+const inCanvas = computed(() => editorStore.currentSelect?.parent === 'canvas')
+const itemCanvas = (item: any) => {
+  return item.properties?.[editorStore.viewport]?.inCanvas
+}
 
 const transfer = (b: any, key='default'): any => {
   if(!b) return []

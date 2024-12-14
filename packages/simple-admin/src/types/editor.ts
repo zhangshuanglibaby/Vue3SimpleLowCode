@@ -33,6 +33,10 @@ export interface IBaseBlock {
    * 存储到数据库的配置,这里的数据其实应该是根据每个物料自己定义的schema中取的
    */
   formData: Partial<BlockSchema[BlockSchemaKeys]>;
+  /**
+   * 用于画布 记录父组件是不是canvas
+   */
+  parent?: string;
 }
 
 export type IBaseBlockOrNull = IBaseBlock | null;

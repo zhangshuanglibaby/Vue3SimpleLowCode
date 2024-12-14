@@ -1,6 +1,6 @@
 <template>
   <div :class="classes" :style="[displayStyle, styles]">
-    <div class="item">
+    <div class="item" :style="[itemStyle]">
       <slot :item="itemComputed"></slot>
     </div>
   </div>
@@ -11,7 +11,7 @@ import { computed, toRefs, inject } from 'vue'
 import { createNameSpace } from '@/utils/components'
 import { props as _props } from './props'
 
-const { n } = createNameSpace('row')
+const { n } = createNameSpace('canvas')
 const props = defineProps(_props)
 const platform = inject('platform')
 
@@ -26,7 +26,9 @@ const classes = computed(() => [n()])
 const itemComputed = computed(() => children.value[0] || [])
 
 const background = computed(() => data.value.background?.[viewport.value] || '')
+const height = computed(() => data.value.height?.[viewport.value] || '')
 const styles = computed(() => [{ background: background.value }])
+const itemStyle = computed(() => [ { height: height.value }])
 
 const displayStyle = computed(() => {
   if (platform === 'editor') {

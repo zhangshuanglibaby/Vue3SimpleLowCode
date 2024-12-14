@@ -33,7 +33,7 @@ import { findNodeById } from "./nested";
 
 const ajv = new Ajv({ allErrors: true })
 ajv.addKeyword({
-  keyword: ['placeholder', 'rules', 'code']
+  keyword: ['placeholder', 'rules', 'code', 'inCanvas']
 })
 AjvErrors(ajv);
 const viewport = ref<Viewport>('desktop');

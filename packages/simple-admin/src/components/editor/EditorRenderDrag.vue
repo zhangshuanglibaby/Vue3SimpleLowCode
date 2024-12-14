@@ -51,7 +51,15 @@
             :children="element.children"
           >
             <template #default="{ item, index }">
+              <EditorRenderCanvas
+                v-if="element.code === 'canvas'"
+                :key="element.id + '-canvas-' + index"
+                :list="item"
+                :parent="element.code"
+                class="nested-item"
+              />
               <EditorRenderDrag
+                v-else
                 :key="element.id + '-' + index"
                 :list="item"
                 :group="group"
@@ -59,6 +67,7 @@
                 :level="level + 1"
                 class="nested-item"
                 :class="nestedClass"
+                :parent="element.code"
               />
             </template>
           </component>
@@ -70,7 +79,7 @@
         <div
           class="block-render"
           :class="activeClass(element)"
-          @click.stop="editorStore.setCurrentSelect(element)"
+          @click.stop="editorStore.setCurrentSelect({...element, parent})"
           @mouseenter="hoverId = element.id"
           @mouseleave="hoverId = ''"
         >
@@ -88,6 +97,7 @@
             :is="renderComponentCode(element)"
             :data="element.formData"
             :viewport="editorStore.viewport"
+            :parent="parent"
           />
         </div>
       </div>
@@ -101,6 +111,8 @@ import { useEditorStore } from '@/stores/editor';
 import { findNodeById, move, nestedClass, replaceNodeId } from './nested';
 import { COMPONENT_PREFIX } from '@/config/index';
 import type { IBaseBlock } from '@/types/editor';
+
+import EditorRenderCanvas from "./EditorRenderCanvas.vue"
 
 defineOptions({
   name: 'editor-render-drag'
@@ -123,6 +135,10 @@ defineProps({
     // 判断嵌套层级的 level等级
     type: Number,
     default: 1
+  },
+  parent: {
+    type: String,
+    default: ''
   }
 });
 
@@ -156,7 +172,6 @@ const handleNodeById = (
     nodeId,
     (params: { array: IBaseBlock[]; node: IBaseBlock; index: number }) => {
       const { array, node, index } = params;
-      console.log(index, '=====index');
       if (type === 'copy') array.splice(index, 0, replaceNodeId(node));
       if (type === 'clear') array.splice(index, 1);
     }

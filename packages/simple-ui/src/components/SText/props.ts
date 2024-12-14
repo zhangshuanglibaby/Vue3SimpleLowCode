@@ -17,6 +17,23 @@ export type STextPropsDataType = {
    * 文本
    */
   text: ViewportType
+
+  /**
+   * 宽度
+   */
+  width: ViewportType
+  /**
+   * 高度
+   */
+  height: ViewportType
+  /**
+   * 居上
+   */
+  top?: ViewportType
+  /**
+   * 居左
+   */
+  left?: ViewportType
 }
 
 export const props = {
@@ -30,6 +47,22 @@ export const props = {
       text: {
         desktop: '',
         mobile: ''
+      },
+      width: {
+        desktop: '',
+        mobile: ''
+      },
+      height: {
+        desktop: '',
+        mobile: ''
+      },
+      top: {
+        desktop: '',
+        mobile: ''
+      },
+      left: {
+        desktop: '',
+        mobile: ''
       }
     })
   },
@@ -40,5 +73,9 @@ export const props = {
       // 校验viewport的值正不正确
       return ['desktop', 'mobile'].includes(val)
     }
+  },
+  parent: {
+    type: String,
+    default: ''
   }
 }
