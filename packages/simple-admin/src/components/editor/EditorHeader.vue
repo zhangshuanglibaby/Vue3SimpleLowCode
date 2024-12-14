@@ -18,18 +18,41 @@
         发布
       </el-button>
     </div>
+    <el-dialog
+      v-model="dialogFormVisible"
+      title="页面发布"
+      width="500"
+    >
+      <el-form ref="ruleFormRef" :rules="rules" :model="form">
+        <el-form-item label="页面名" label-width="83px" prop="name">
+          <el-input v-model="form.name" autocomplete="off" placeholder="请输入页面名"></el-input>
+        </el-form-item>
+      </el-form>
+      <template #footer>
+        <div class="dialog-footer">
+          <el-button @click="dialogFormVisible = false">取消</el-button>
+          <el-button type="primary" @click="create(ruleFormRef)">
+            提交
+          </el-button>
+        </div>
+      </template>
+    </el-dialog>
   </div>
 </template>
 <script setup lang="ts">
-import { nextTick, ref, watch } from 'vue';
+import { ref, watch, reactive } from 'vue';
 import Ajv from "ajv";
 import AjvErrors from "ajv-errors";
 import { useEditorStore } from '@/stores/editor';
+import { ElMessage } from "element-plus";
+import type { FormInstance } from "element-plus";
+import { useRouter } from "vue-router";
 
 import type { Viewport } from '@/types/editor';
 import icon from '@/config/icon';
 import { blockSchema, type BlockSchemaKeys} from "@/config/schema";
 import { findNodeById } from "./nested";
+import { createPageAsync } from "@/api/page";
 
 const ajv = new Ajv({ allErrors: true })
 ajv.addKeyword({
@@ -39,6 +62,18 @@ AjvErrors(ajv);
 const viewport = ref<Viewport>('desktop');
 
 const editorStore = useEditorStore();
+const router = useRouter();
+
+const dialogFormVisible = ref(false);
+const ruleFormRef = ref<FormInstance>();
+const form = reactive({
+  name: ''
+})
+const rules = reactive({
+  name: [
+    { required: true, message: '请输入页面名', trigger: 'blur' }
+  ]
+})
 
 watch(viewport, val => {
   editorStore.setViewport(val);
@@ -56,15 +91,25 @@ const validateAll = async(item: any) => {
     if(path) {
       const [, , pathViewport] = path.split("/");
       viewport.value = pathViewport as Viewport;
-      await nextTick();
-      editorStore.setViewport(pathViewport as Viewport);
-      editorStore.setConfigPanelShow(true);
-      findNodeById(editorStore.blockConfig, id, (params) => {
-        const { node } = params;
-        editorStore.setCurrentSelect(node)
-      })
+      // await nextTick();
+      // editorStore.setViewport(pathViewport as Viewport);
+      // editorStore.setConfigPanelShow(true);
+      // findNodeById(editorStore.blockConfig, id, (params) => {
+      //   const { node } = params;
+      //   editorStore.setCurrentSelect(node)
+      // })
+
+      setTimeout(() => {
+        editorStore.setViewport(pathViewport as Viewport);
+      }, 0)
     }
+    editorStore.setConfigPanelShow(true);
+    findNodeById(editorStore.blockConfig, id, (params) => {
+      const { node } = params;
+      editorStore.setCurrentSelect(node)
+    })
     console.warn('ajv error', id, validate.errors?.[0]?.instancePath, validate.errors?.[0]?.message)
+    return true;
   }
   console.warn('ajv submit')
 }
@@ -79,6 +124,27 @@ const submit = () => {
   })
   list.forEach((item) => {
     validateAll(item)
+  })
+  const hasError =  list.some((item) => validateAll(item))
+  if(hasError) return;
+  dialogFormVisible.value = true;
+}
+
+const create = async (formEl: FormInstance | undefined) => {
+  if (!formEl) return;
+  await formEl.validate(async (valid, fields) => {
+    if(!valid) {
+      console.log("error submit!", fields)
+      return;
+    }
+
+    await createPageAsync({
+      name: form.name,
+      content: JSON.stringify({ block: editorStore.blockConfig, page: editorStore.pageConfig })
+    })
+    dialogFormVisible.value = false;
+    ElMessage.success('发布成功');
+    router.go(-1);
   })
 }
 </script>

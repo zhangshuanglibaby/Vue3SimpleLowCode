@@ -67,10 +67,10 @@ const left = Type.String({
 const schema = Type.Object({
   display: schemaAllViewport(display),
   text: schemaAllViewport(text),
-  width: schemaAllViewport(width),
-  height: schemaAllViewport(height),
-  top: schemaAllViewport(top),
-  left: schemaAllViewport(left)
+  width: Type.Optional(schemaAllViewport(width)),
+  height: Type.Optional(schemaAllViewport(height)),
+  top: Type.Optional(schemaAllViewport(top)),
+  left: Type.Optional(schemaAllViewport(left))
 })
 
 // schema 的类型

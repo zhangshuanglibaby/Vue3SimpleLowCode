@@ -186,8 +186,8 @@ const schema = Type.Object({
   link: schemaAllViewport(link),
   width: schemaAllViewport(width),
   height: schemaAllViewport(height),
-  top: schemaAllViewport(top),
-  left: schemaAllViewport(left)
+  top: Type.Optional(schemaAllViewport(top)),
+  left: Type.Optional(schemaAllViewport(left))
 })
 
 // schema 的类型

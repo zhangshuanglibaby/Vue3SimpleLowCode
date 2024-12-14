@@ -80,7 +80,7 @@ const submitForm = () => {
     ruleFormRef.value.validate((valid: any, fields: any) => {
       console.log(valid, fields)
     })
-  }, 100)
+  }, 200)
 }
 submitForm();
 watch(
